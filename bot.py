@@ -47,7 +47,7 @@ def send_menu(chat_id):
             headers={
                 "Autorization": TOKEN,
                 "Content-Type": "application/json"
-            }
+            },
             timeout=10
         )
     except Exception as e:
