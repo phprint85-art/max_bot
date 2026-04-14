@@ -40,16 +40,20 @@ def send_menu(chat_id):
         }
     ]
 
-    try:
-        requests.post(
+     try:
+        response = requests.post(
             SEND_URL,
             json=payload,
             headers={
-                "Autorization": TOKEN,
+                "Authorization": TOKEN,
                 "Content-Type": "application/json"
             },
             timeout=10
         )
+
+        print("SEND STATUS:", response.status_code)
+        print("SEND RESPONSE:", response.text)
+
     except Exception as e:
         print("SEND ERROR:", e)
 
@@ -57,7 +61,7 @@ def send_menu(chat_id):
 def webhook():
     try:
         data = request.json
-        print("DEBUG:", data)  # важно для проверки структуры MAX
+        print("DEBUG:", data)
 
         chat_id = None
 
@@ -76,7 +80,7 @@ def webhook():
         print("WEBHOOK ERROR:", e)
         return jsonify({"ok": False})
 
-# ВАЖНО для Render
+# важно для Render
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
