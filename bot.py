@@ -9,8 +9,8 @@ TOKEN = os.getenv("TOKEN")
 
 SEND_URL = "https://app.api-messenger.com/sendMessage"
 
-CHAT_LINK_1 = "https://example.com/chat1"
-CHAT_LINK_2 = "https://example.com/chat2"
+CHAT_LINK_1 = "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s"
+CHAT_LINK_2 = "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g"
 
 def send_menu(chat_id):
     if not TOKEN:
