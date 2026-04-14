@@ -51,7 +51,7 @@ def send_menu(chat_id):
 def webhook():
     try:
         data = request.json
-        print("DEBUG:", data)
+        print("GOT REQUEST:", data)
 
         chat_id = None
 
