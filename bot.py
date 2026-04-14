@@ -1,6 +1,8 @@
 from maxapi import Bot
 import os
 import time
+import threading
+from flask import Flask
 
 TOKEN = os.getenv("TOKEN")
 
@@ -9,6 +11,12 @@ bot = Bot(token=TOKEN)
 print("BOT STARTED")
 print("TOKEN EXISTS:", bool(TOKEN))
 
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is running"
+    
 def debug_loop():
     offset = 0
 
@@ -40,4 +48,6 @@ def debug_loop():
         time.sleep(3)
 
 if __name__ == "__main__":
+    threading.Thread(target=run_bot).start()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
     debug_loop()
