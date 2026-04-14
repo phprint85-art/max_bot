@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 TOKEN = os.getenv("TOKEN")
 
-SEND_URL = "https://app.api-messenger.com/sendMessage"
+SEND_URL = "https://platform-api.max.ru/messages"
 
 
 CHAT_LINK_1 = "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s"
