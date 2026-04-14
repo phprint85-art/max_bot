@@ -5,6 +5,8 @@ import os
 app = Flask(__name__)
 
 TOKEN = os.getenv("TOKEN")
+if not TOKEN:
+    print("токен не задан")
 
 SEND_URL = "https://platform-api.max.ru/messages"
 
