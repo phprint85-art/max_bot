@@ -1,11 +1,9 @@
 {
-  "name": "@maxhub/max-bot-api",
-  "version": "0.2.2",
-  "description": "Max Bot Framework",
-  "repository": "https://github.com/max-messenger/max-bot-api-client-ts",
-  "author": "Juice Development",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.18.0"
+  "name": "max-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "dependencies": {
+    "@maxhub/max-bot-api": "0.2.2"
   }
 }
