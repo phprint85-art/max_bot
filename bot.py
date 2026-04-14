@@ -23,24 +23,14 @@ def send_menu(chat_id):
             "message": {
                 "text": "Выберите филиал:",
                 "inline_keyboard": [
-                    [
-                        {
-                            "text": "Дачная, 27",
-                            "url": CHAT_LINK_1
-                        }
-                    ],
-                    [
-                        {
-                            "text": "Красный проспект, 85",
-                            "url": CHAT_LINK_2
-                        }
-                    ]
+                    [{"text": "Дачная, 27", "url": CHAT_LINK_1}],
+                    [{"text": "Красный проспект, 85", "url": CHAT_LINK_2}]
                 ]
             }
         }
     ]
 
-     try:
+    try:
         response = requests.post(
             SEND_URL,
             json=payload,
