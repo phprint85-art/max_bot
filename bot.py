@@ -1,13 +1,13 @@
 from maxapi import Bot, Dispatcher
 from maxapi.types import MessageCreated
+import asyncio
 import os
 
 TOKEN = os.getenv("TOKEN")
 
 bot = Bot(token=TOKEN)
-dp = Dispatcher()
+dp = Dispatcher(bot)
 
-@dp.message()
 async def handle_message(event: MessageCreated):
     chat_id = event.message.chat.id
 
@@ -19,6 +19,8 @@ async def handle_message(event: MessageCreated):
             [{"text": "Красный проспект, 85", "url": "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g"}]
         ]
     )
+# регистрируем обработчик
+dp.add_handler(handle_message)
 
 if __name__ == "__main__":
-    dp.run_polling(bot)
+    dp.run_polling()
