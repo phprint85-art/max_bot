@@ -11,14 +11,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "bot is running"
+    return "Bot is running"
 
 def run_bot():
     offset = 0
 
     while True:
         try:
-             updates = bot.get_updates(offset=offset)
+            updates = bot.get_updates(offset=offset)
 
             for update in updates:
                 print("UPDATE:", update)
@@ -44,7 +44,7 @@ def run_bot():
             print("ERROR:", e)
 
         time.sleep(1)
-#
+
 if __name__ == "__main__":
-    treading.Tread(target=run_bot).start()
-    app.run(host="0.0.0.0", port=int(os.envirion.get("PORT", 5000)))
+    threading.Thread(target=run_bot).start()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
