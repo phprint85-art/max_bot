@@ -5,6 +5,8 @@ import os
 app = Flask(__name__)
 
 TOKEN = os.getenv("TOKEN")
+print ("bot started")
+print ("token": TOKEN)
 if not TOKEN:
     print("токен не задан")
 
