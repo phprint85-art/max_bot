@@ -2,7 +2,7 @@ from maxapi import Bot, Message
 from flask import Flask
 import os
 import threading
-
+#
 #  токен из переменной окружения
 TOKEN = os.getenv("TOKEN")
 
