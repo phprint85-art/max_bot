@@ -9,7 +9,7 @@ TOKEN = os.getenv("TOKEN")
 bot = Bot(token=TOKEN)
 
 app = Flask(__name__)
-
+#
 @app.route("/")
 def home():
     return "OK"
