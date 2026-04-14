@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "bot is running:
+    return "bot is running"
 
 def run_bot():
     offset = 0
