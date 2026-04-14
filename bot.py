@@ -39,7 +39,7 @@ def send_menu(chat_id):
 
     requests.post(
         SEND_URL,
-        params={"token": TOKEN},
+        params={"TOKEN": TOKEN},
         json=payload
     )
 
