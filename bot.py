@@ -10,7 +10,7 @@ print ("bot started")
 if not TOKEN:
     print("токен не задан")
 else:
-    print ("token": TOKEN)
+    print ("token: " TOKEN)
 SEND_URL = "https://platform-api.max.ru/messages"
 
 
