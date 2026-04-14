@@ -1,9 +1,7 @@
 const max = require("@maxhub/max-bot-api");
-const http = require("http");
-
-const Bot = max.Bot || max.default?.Bot;
-
+const Bot = max.Bot;
 const bot = new Bot(process.env.TOKEN);
+
 
 //  сообщение → меню
 bot.on("message", async (msg) => {
