@@ -8,6 +8,7 @@ TOKEN = os.getenv("TOKEN")
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
+@dp.event(MessageCreated)
 async def handle_message(event: MessageCreated):
     chat_id = event.message.chat.id
 
@@ -23,4 +24,4 @@ async def handle_message(event: MessageCreated):
 dp.add_handler(handle_message)
 
 if __name__ == "__main__":
-    dp.run_polling()
+    dp.run_polling(bot)
