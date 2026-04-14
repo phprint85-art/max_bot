@@ -6,10 +6,11 @@ app = Flask(__name__)
 
 TOKEN = os.getenv("TOKEN")
 print ("bot started")
-print ("token": TOKEN)
+
 if not TOKEN:
     print("токен не задан")
-
+else:
+    print ("token": TOKEN)
 SEND_URL = "https://platform-api.max.ru/messages"
 
 
