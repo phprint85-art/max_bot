@@ -1,2 +1,2 @@
-maxbot
+max-api
 flask
