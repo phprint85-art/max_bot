@@ -4,21 +4,19 @@ import os
 
 app = Flask(__name__)
 
+# токен из Render Environment Variables
 TOKEN = os.getenv("TOKEN")
-print ("bot started")
 
-if not TOKEN:
-    print("токен не задан")
-else:
-    print ("token: ", TOKEN)
-SEND_URL = "https://platform-api.max.ru/messages"
+SEND_URL = "https://app.api-messenger.com/sendMessage"
 
-
-CHAT_LINK_1 = "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s"
-CHAT_LINK_2 = "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g"
-
+CHAT_LINK_1 = "https://example.com/chat1"
+CHAT_LINK_2 = "https://example.com/chat2"
 
 def send_menu(chat_id):
+    if not TOKEN:
+        print("ERROR: TOKEN is missing")
+        return
+
     payload = [
         {
             "chatId": chat_id,
@@ -42,32 +40,40 @@ def send_menu(chat_id):
         }
     ]
 
-    requests.post(
-        SEND_URL,
-        params={"TOKEN": TOKEN},
-        json=payload
-    )
-
+    try:
+        requests.post(
+            SEND_URL,
+            params={"token": TOKEN},
+            json=payload,
+            timeout=10
+        )
+    except Exception as e:
+        print("SEND ERROR:", e)
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    data = request.json
-
-    # пытаемся достать chat_id (под разные форматы MAX)
-    chat_id = None
-
     try:
-        chat_id = data["message"]["recipient"]["chat_id"]
-    except:
-        pass
+        data = request.json
+        print("DEBUG:", data)  # важно для проверки структуры MAX
 
-    if chat_id:
-        send_menu(chat_id)
+        chat_id = None
 
-    return jsonify({"ok": True})
+        # безопасное извлечение chat_id
+        if isinstance(data, dict):
+            message = data.get("message", {})
+            recipient = message.get("recipient", {})
+            chat_id = recipient.get("chat_id")
 
+        if chat_id:
+            send_menu(chat_id)
 
-# важно для Render
-if __name__ == "main":
+        return jsonify({"ok": True})
+
+    except Exception as e:
+        print("WEBHOOK ERROR:", e)
+        return jsonify({"ok": False})
+
+# ВАЖНО для Render
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
