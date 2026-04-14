@@ -44,7 +44,7 @@ def run_bot():
             print("ERROR:", e)
 
         time.sleep(1)
-
+#
 if __name__ == "__main__":
     treading.Tread(target=run_bot).start()
     app.run(host="0.0.0.0", port=int(os.envirion.get("PORT", 5000)))
