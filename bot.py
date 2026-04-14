@@ -1,4 +1,4 @@
-from max-bot import Bot, Message
+from maxapi import Bot, Message
 from flask import Flask
 import os
 import threading
