@@ -7,7 +7,7 @@ app = Flask(__name__)
 # токен из Render Environment Variables
 TOKEN = os.getenv("TOKEN")
 
-SEND_URL = "https://platform-api.max.ru/me?"
+SEND_URL = "https://platform-api.max.ru/messages"
 
 CHAT_LINK_1 = "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s"
 CHAT_LINK_2 = "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g"
