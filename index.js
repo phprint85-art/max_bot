@@ -1,24 +1,55 @@
-const { Bot } = require("@maxhub/max-bot-api");
 const http = require("http");
 
-const bot = new Bot(process.env.TOKEN);
+const TOKEN = process.env.TOKEN;
+let marker = 0;
 
-// любое сообщение → меню выбора филиала
-bot.on("message_created", async (ctx) => {
-    await ctx.reply({
-        text: "Выберите филиал:",
-        inline_keyboard: [
-            [{ text: "Дачная, 27", url: "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s" }],
-            [{ text: "Красный проспект, 85", url: "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g" }]
-        ]
+async function getUpdates() {
+    const res = await fetch(`https://platform-api.max.ru/updates?marker=${marker}`, {
+        headers: {
+            "Authorization": TOKEN
+        }
     });
-});
 
-bot.start();
+    const data = await res.json();
 
-console.log("BOT STARTED");
+    if (data.updates && data.updates.length > 0) {
 
-// сервер для Render
+        marker = data.marker;
+
+        for (const upd of data.updates) {
+
+            const msg = upd.message;
+
+            if (msg) {
+
+                await fetch("https://platform-api.max.ru/messages", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": TOKEN,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        chat_id: msg.chat.id,
+                        text: "Выберите филиал:",
+                        attachments: [{
+                            type: "inline_keyboard",
+                            payload: {
+                                buttons: [
+                                    [{ type: "link", text: "Дачная, 27", url: "https://example.com/1" }],
+                                    [{ type: "link", text: "Красный проспект, 85", url: "https://example.com/2" }]
+                                ]
+                            }
+                        }]
+                    })
+                });
+            }
+        }
+    }
+}
+
+setInterval(getUpdates, 3000);
+
+// Render keep-alive сервер
 http.createServer((req, res) => {
     res.end("OK");
 }).listen(process.env.PORT || 3000);
