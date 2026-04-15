@@ -5,24 +5,26 @@ const bot = new max.Bot(process.env.TOKEN);
 
 console.log("BOT STARTED");
 
-let marker = 0;
+const server = http.createServer(async (req, res) => {
 
-async function poll() {
-    try {
-        const updates = await bot.getUpdates();
+    if (req.method === "POST") {
+        let body = "";
 
-        console.log("UPDATES:", updates);
+        req.on("data", chunk => {
+            body += chunk.toString();
+        });
 
-        if (updates && updates.length > 0) {
-            for (const upd of updates) {
+        req.on("end", async () => {
+            try {
+                const update = JSON.parse(body);
 
-                const msg = upd.message;
+                console.log("UPDATE:", update);
+
+                const msg = update.message;
 
                 if (msg) {
-                    const chatId = msg.chat.id;
-
                     await bot.sendMessage({
-                        chatId: chatId,
+                        chatId: msg.chat.id,
                         text: "Выберите филиал:",
                         inline_keyboard: [
                             [{ text: "Дачная, 27", url: "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s" }],
@@ -30,19 +32,18 @@ async function poll() {
                         ]
                     });
                 }
-            }
-        }
 
-    } catch (e) {
-        console.log("ERROR:", e);
+            } catch (e) {
+                console.log("ERROR:", e);
+            }
+
+            res.end("OK");
+        });
+
+    } else {
+        res.end("OK");
     }
 
-    setTimeout(poll, 3000);
-}
+});
 
-poll();
-
-// сервер для Render
-http.createServer((req, res) => {
-    res.end("OK");
-}).listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000);
