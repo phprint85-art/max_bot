@@ -35,8 +35,8 @@ async function getUpdates() {
                             type: "inline_keyboard",
                             payload: {
                                 buttons: [
-                                    [{ type: "link", text: "Дачная, 27", url: "https://example.com/1" }],
-                                    [{ type: "link", text: "Красный проспект, 85", url: "https://example.com/2" }]
+                                    [{ type: "link", text: "Дачная, 27", url: "https://max.ru/u/f9LHodD0cOICVtjg3UhFdfLtvrcH3SUeaR4e2a7Q2o-eIPbB9KBkJBfPC2s" }],
+                                    [{ type: "link", text: "Красный проспект, 85", url: "https://max.ru/u/f9LHodD0cOLpulUfVSlZJfTT-SQqFejmGqTlbzYKjry5cwZ2H2Za-WQh15g" }]
                                 ]
                             }
                         }]
